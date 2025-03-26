@@ -1,0 +1,253 @@
+Building configuration...
+
+Current configuration : 4262 bytes
+!
+version 12.2(37)SE1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname MLS-D
+!
+!
+enable password code
+!
+!
+!
+!
+!
+aaa new-model
+!
+aaa authentication login myauth group tacacs+ local 
+!
+!
+!
+!
+!
+!
+ip routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Port-channel7
+ switchport access vlan 70
+ switchport mode access
+!
+interface Port-channel8
+ switchport access vlan 80
+ switchport mode access
+!
+interface Port-channel9
+ switchport access vlan 100
+ switchport mode access
+!
+interface Port-channel10
+ switchport access vlan 90
+ switchport mode access
+!
+interface Port-channel11
+ switchport access vlan 120
+ switchport mode access
+!
+interface Port-channel12
+ switchport access vlan 110
+ switchport mode access
+!
+interface FastEthernet0/1
+ switchport access vlan 70
+ switchport mode access
+ channel-group 7 mode on
+!
+interface FastEthernet0/2
+ switchport access vlan 90
+ switchport mode access
+ channel-group 10 mode on
+!
+interface FastEthernet0/3
+ switchport access vlan 80
+ switchport mode access
+ channel-group 7 mode on
+!
+interface FastEthernet0/4
+ switchport access vlan 100
+ switchport mode access
+ channel-group 9 mode on
+!
+interface FastEthernet0/5
+ switchport access vlan 110
+ switchport mode access
+ channel-group 12 mode on
+!
+interface FastEthernet0/6
+ switchport access vlan 120
+ switchport mode access
+ channel-group 11 mode on
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+ switchport access vlan 70
+ switchport mode access
+ channel-group 7 mode on
+!
+interface FastEthernet0/20
+ switchport access vlan 80
+ switchport mode access
+ channel-group 7 mode on
+!
+interface FastEthernet0/21
+ switchport access vlan 90
+ switchport mode access
+ channel-group 10 mode on
+!
+interface FastEthernet0/22
+ switchport access vlan 100
+ switchport mode access
+ channel-group 9 mode on
+!
+interface FastEthernet0/23
+ switchport access vlan 110
+ switchport mode access
+ channel-group 12 mode on
+!
+interface FastEthernet0/24
+ switchport access vlan 120
+ switchport mode access
+ channel-group 11 mode on
+!
+interface GigabitEthernet0/1
+ no switchport
+ ip address 10.10.128.38 255.255.255.252
+ ip ospf 10 area 2
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no switchport
+ ip address 10.10.128.42 255.255.255.252
+ ip ospf 10 area 2
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan70
+ mac-address 0001.649e.6801
+ ip address 10.10.70.2 255.255.255.0
+ ip helper-address 10.10.120.4
+ standby 70 ip 10.10.70.254
+!
+interface Vlan80
+ mac-address 0001.649e.6802
+ ip address 10.10.80.2 255.255.255.0
+ ip helper-address 10.10.120.4
+ standby 80 ip 10.10.80.254
+!
+interface Vlan90
+ mac-address 0001.649e.6803
+ ip address 10.10.90.2 255.255.255.0
+ ip helper-address 10.10.120.4
+ standby 90 ip 10.10.90.254
+!
+interface Vlan100
+ mac-address 0001.649e.6804
+ ip address 10.10.100.2 255.255.255.0
+ ip helper-address 10.10.120.4
+ standby 100 ip 10.10.100.254
+!
+interface Vlan110
+ mac-address 0001.649e.6805
+ ip address 10.10.110.2 255.255.255.0
+ ip helper-address 10.10.120.4
+ standby 110 ip 10.10.110.254
+ standby 110 priority 150
+ standby 110 preempt
+!
+interface Vlan120
+ mac-address 0001.649e.6806
+ ip address 10.10.120.2 255.255.255.0
+ standby 120 ip 10.10.120.254
+ standby 120 priority 150
+ standby 120 preempt
+!
+router ospf 10
+ log-adjacency-changes
+ passive-interface Vlan70
+ passive-interface Vlan80
+ passive-interface Vlan90
+ passive-interface Vlan100
+ passive-interface Vlan110
+ passive-interface Vlan120
+ network 10.10.70.0 0.0.0.255 area 2
+ network 10.10.80.0 0.0.0.255 area 2
+ network 10.10.90.0 0.0.0.255 area 2
+ network 10.10.100.0 0.0.0.255 area 2
+ network 10.10.110.0 0.0.0.255 area 2
+ network 10.10.120.0 0.0.0.255 area 2
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+tacacs-server host 10.10.70.5 key code
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login authentication myauth
+!
+!
+!
+!
+end
